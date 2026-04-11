@@ -1,3 +1,6 @@
+server:
+  port: 9988
+
 spring:
   application:
     name: Project-With-AI
@@ -13,3 +16,7 @@ spring:
     properties:
       hibernate:
         format_sql: true
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
