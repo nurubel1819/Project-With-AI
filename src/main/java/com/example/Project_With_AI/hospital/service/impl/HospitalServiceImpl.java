@@ -23,7 +23,7 @@ public class HospitalServiceImpl implements HospitalService {
 			.address(request.address())
 			.latitude(request.latitude())
 			.longitude(request.longitude())
-			.phoneNumber(request.phoneNumber())
+			.phoneNumber(normalizeBangladeshiPhoneNumber(request.phoneNumber()))
 			.email(request.email())
 			.description(request.description())
 			.build();
@@ -45,5 +45,17 @@ public class HospitalServiceImpl implements HospitalService {
 			hospital.getCreatedAt(),
 			hospital.getUpdatedAt()
 		);
+	}
+
+	private String normalizeBangladeshiPhoneNumber(String phoneNumber) {
+		if (phoneNumber == null || phoneNumber.isBlank()) {
+			return phoneNumber;
+		}
+
+		if (phoneNumber.startsWith("+88")) {
+			return phoneNumber;
+		}
+
+		return "+88" + phoneNumber;
 	}
 }

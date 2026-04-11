@@ -36,8 +36,8 @@ public record HospitalCreateRequest(
 
 	@Schema(description = "Hospital contact phone number", example = "+8801712345678")
 	@Pattern(
-		regexp = "^[+]?[0-9()\\-\\s]{7,30}$",
-		message = "Phone number format is invalid"
+		regexp = "^(\\+88)?01[3-9]\\d{8}$",
+		message = "Phone number must be a valid Bangladeshi mobile number"
 	)
 	String phoneNumber,
 
