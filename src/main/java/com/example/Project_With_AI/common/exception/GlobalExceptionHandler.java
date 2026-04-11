@@ -29,4 +29,16 @@ public class GlobalExceptionHandler {
 
 		return ResponseEntity.badRequest().body(response);
 	}
+
+	@ExceptionHandler(ResourceNotFoundException.class)
+	public ResponseEntity<ApiErrorResponse> handleResourceNotFoundException(ResourceNotFoundException exception) {
+		ApiErrorResponse response = new ApiErrorResponse(
+			LocalDateTime.now(),
+			HttpStatus.NOT_FOUND.value(),
+			exception.getMessage(),
+			Map.of()
+		);
+
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	}
 }

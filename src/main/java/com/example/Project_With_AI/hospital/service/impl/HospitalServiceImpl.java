@@ -1,6 +1,8 @@
 package com.example.Project_With_AI.hospital.service.impl;
 
+import com.example.Project_With_AI.common.exception.ResourceNotFoundException;
 import com.example.Project_With_AI.hospital.dto.HospitalCreateRequest;
+import com.example.Project_With_AI.hospital.dto.HospitalPatchRequest;
 import com.example.Project_With_AI.hospital.dto.HospitalResponse;
 import com.example.Project_With_AI.hospital.entity.Hospital;
 import com.example.Project_With_AI.hospital.repository.HospitalRepository;
@@ -30,6 +32,38 @@ public class HospitalServiceImpl implements HospitalService {
 
 		Hospital savedHospital = hospitalRepository.save(hospital);
 		return mapToResponse(savedHospital);
+	}
+
+	@Override
+	@Transactional
+	public HospitalResponse patchHospital(Long id, HospitalPatchRequest request) {
+		Hospital hospital = hospitalRepository.findById(id)
+			.orElseThrow(() -> new ResourceNotFoundException("Hospital not found with id: " + id));
+
+		if (request.name() != null) {
+			hospital.setName(request.name());
+		}
+		if (request.address() != null) {
+			hospital.setAddress(request.address());
+		}
+		if (request.latitude() != null) {
+			hospital.setLatitude(request.latitude());
+		}
+		if (request.longitude() != null) {
+			hospital.setLongitude(request.longitude());
+		}
+		if (request.phoneNumber() != null) {
+			hospital.setPhoneNumber(normalizeBangladeshiPhoneNumber(request.phoneNumber()));
+		}
+		if (request.email() != null) {
+			hospital.setEmail(request.email());
+		}
+		if (request.description() != null) {
+			hospital.setDescription(request.description());
+		}
+
+		Hospital updatedHospital = hospitalRepository.save(hospital);
+		return mapToResponse(updatedHospital);
 	}
 
 	private HospitalResponse mapToResponse(Hospital hospital) {
