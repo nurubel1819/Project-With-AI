@@ -1,5 +1,5 @@
 server:
-  port: 9988
+  port: 8080
 
 spring:
   application:
@@ -20,6 +20,7 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+    persist-authorization: true
 
 app:
   security:
@@ -31,3 +32,8 @@ app:
       full-name: System Admin
       email: admin@example.com
       password: Admin@12345
+    api-basic-auth:
+      enabled: true
+      username: apiuser
+      password: ApiPass@123
+      role: ADMIN
