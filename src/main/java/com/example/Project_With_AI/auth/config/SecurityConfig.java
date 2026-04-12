@@ -1,5 +1,6 @@
 package com.example.Project_With_AI.auth.config;
 
+import com.example.Project_With_AI.auth.security.ApiBasicAuthenticationProvider;
 import com.example.Project_With_AI.auth.security.CustomUserDetailsService;
 import com.example.Project_With_AI.auth.security.RestAccessDeniedHandler;
 import com.example.Project_With_AI.auth.security.RestAuthenticationEntryPoint;
@@ -13,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -42,7 +44,10 @@ public class SecurityConfig {
 	private final RestAccessDeniedHandler restAccessDeniedHandler;
 
 	@Bean
-	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+	public SecurityFilterChain securityFilterChain(
+		HttpSecurity http,
+		ApiBasicAuthenticationProvider apiBasicAuthenticationProvider
+	) throws Exception {
 		http
 			.csrf(csrf -> csrf.disable())
 			.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -62,7 +67,9 @@ public class SecurityConfig {
 			.oauth2ResourceServer(oauth2 -> oauth2
 				.jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthenticationConverter()))
 			)
+			.httpBasic(Customizer.withDefaults())
 			.authenticationProvider(authenticationProvider())
+			.authenticationProvider(apiBasicAuthenticationProvider)
 		;
 
 		return http.build();

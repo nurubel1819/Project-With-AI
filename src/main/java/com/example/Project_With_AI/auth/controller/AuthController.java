@@ -5,6 +5,7 @@ import com.example.Project_With_AI.auth.dto.LoginRequest;
 import com.example.Project_With_AI.auth.dto.RegisterRequest;
 import com.example.Project_With_AI.auth.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.security.SecurityRequirements;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Tag(name = "Authentication", description = "Authentication APIs")
+@SecurityRequirements
 public class AuthController {
 
 	private final AuthService authService;
