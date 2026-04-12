@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -40,5 +41,17 @@ public class GlobalExceptionHandler {
 		);
 
 		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+	}
+
+	@ExceptionHandler({IllegalArgumentException.class, BadCredentialsException.class})
+	public ResponseEntity<ApiErrorResponse> handleBadRequestException(RuntimeException exception) {
+		ApiErrorResponse response = new ApiErrorResponse(
+			LocalDateTime.now(),
+			HttpStatus.BAD_REQUEST.value(),
+			exception.getMessage(),
+			Map.of()
+		);
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 }

@@ -7,7 +7,8 @@ spring:
   datasource:
     url: jdbc:mysql://localhost:3306/ai_project?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
     username: root
-    password: Rubel1234@
+    #password: Rubel1234@
+    password: 1234
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
@@ -20,3 +21,14 @@ spring:
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
+
+app:
+  security:
+    jwt:
+      # 64+ byte base64 key for HS256/HS512 signing.
+      secret: bXktaW50ZXJuYWwtand0LXNlY3JldC1rZXktZm9yLXByb2plY3Qtd2l0aC1haS0yMDI2LXNlY3VyZS1zdHJpbmc=
+      expiration-ms: 86400000
+    admin:
+      full-name: System Admin
+      email: admin@example.com
+      password: Admin@12345
