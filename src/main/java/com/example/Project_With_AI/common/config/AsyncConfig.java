@@ -8,12 +8,25 @@ import org.springframework.scheduling.annotation.EnableAsync;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+
 @Configuration
 @EnableAsync
 public class AsyncConfig {
 
-    @Bean
-    public Executor taskExecutor() {
+
+    @Bean("virtualTaskExecutor")
+    public Executor virtualTaskExecutor() {
+
         return Executors.newVirtualThreadPerTaskExecutor();
+    }
+
+
+    @Bean("cpuTaskExecutor")
+    public Executor cpuTaskExecutor() {
+
+        return Executors.newFixedThreadPool(
+                Runtime.getRuntime()
+                        .availableProcessors()
+        );
     }
 }
