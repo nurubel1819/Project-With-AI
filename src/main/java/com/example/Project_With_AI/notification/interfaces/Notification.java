@@ -1,5 +1,5 @@
 package com.example.Project_With_AI.notification.interfaces;
 
-public interface notification {
+public interface Notification {
     void sendNotification(String source,String destination, String message);
 }
