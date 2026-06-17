@@ -16,6 +16,9 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  threads:
+    virtual:
+      enabled: true
 
 springdoc:
   swagger-ui:
