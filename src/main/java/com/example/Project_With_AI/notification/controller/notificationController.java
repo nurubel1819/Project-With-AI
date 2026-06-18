@@ -5,6 +5,7 @@ import com.example.Project_With_AI.notification.services.NotificationContextServ
 import com.example.Project_With_AI.notification.services.OsThreadService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ public class notificationController {
     private final NotificationContextService notificationContextService;
     private final OsThreadService osThreadService;
 
+    @Transactional
     @PostMapping("/send")
     ResponseEntity<String> sendNotification(
             @RequestParam NotificationType notificationType,
