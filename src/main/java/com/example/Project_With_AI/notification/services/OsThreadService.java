@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public class OsThreadService {
     @Async("cpuTaskExecutor")
     public void osThreadCall() {
-        System.out.println("Running Thread inside Os thread service = "+ Thread.currentThread());
+        System.out.println("Running Thread inside OS thread service = "+ Thread.currentThread());
     }
 }
