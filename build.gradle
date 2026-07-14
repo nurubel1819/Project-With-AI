@@ -36,6 +36,14 @@ dependencies {
 	testCompileOnly 'org.projectlombok:lombok'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	testAnnotationProcessor 'org.projectlombok:lombok'
+
+	// Flyway
+	/*implementation 'org.flywaydb:flyway-core'
+	implementation 'org.flywaydb:flyway-mysql'*/
+
+	implementation 'org.springframework.boot:spring-boot-starter-flyway'
+	testImplementation 'org.springframework.boot:spring-boot-starter-flyway-test'
+	implementation 'org.flywaydb:flyway-mysql'
 }
 
 tasks.named('test') {
