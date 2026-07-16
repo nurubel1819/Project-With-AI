@@ -44,6 +44,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-flyway'
 	testImplementation 'org.springframework.boot:spring-boot-starter-flyway-test'
 	implementation 'org.flywaydb:flyway-mysql'
+
+	// Web Socket
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
 }
 
 tasks.named('test') {
