@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Doctor Live Test</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+</head>
+<body>
+<h2>Doctor WebSocket Connect (Live Test)</h2>
+<input type="text" id="tokenInput" placeholder="Paste JWT token here" style="width:400px" />
+<button onclick="connectAsDoctor()">Connect</button>
+<p id="status"></p>
+
+<script>
+    function connectAsDoctor() {
+        const token = document.getElementById('tokenInput').value;
+        const socket = new SockJS('/ws');
+        const stompClient = Stomp.over(socket);
+
+        stompClient.connect(
+            { "Authorization": "Bearer " + token },  // এখানে JWT পাঠানো হচ্ছে
+            function () {
+                document.getElementById('status').textContent = "Connected as Doctor ✅";
+            },
+            function (error) {
+                document.getElementById('status').textContent = "Connection failed: " + error;
+            }
+        );
+    }
+</script>
+</body>
+</html>
